@@ -1,9 +1,14 @@
 from datetime import datetime
+from abc import ABC
 
-from engine.sternman_engine import SternmanEngine
+from battery import Battery
 
 
-class Palindrome(SternmanEngine):
+class nubbin_battery(Battery, ABC):
+    def __init__(self, last_service_date, current_date):
+        self.last_service_date: last_service_date
+        self.current_date: current_date
+
     def needs_service(self):
         service_threshold_date = self.last_service_date.replace(year=self.last_service_date.year + 4)
         if service_threshold_date < datetime.today().date() or self.engine_should_be_serviced():
