@@ -6,6 +6,8 @@ from nubbin_battery import Nubbin
 from willoughby_engine import WilloughbyEngine
 from capulet_engine import CapuletEngine
 from sternman_engine import SternmanEngine
+from octoprime_tire import Octoprime
+from carrigan_tire import Carrigan
 
 
 class TestSpindler(unittest.TestCase):
@@ -87,6 +89,33 @@ class TestSternman(unittest.TestCase):
         car = SternmanEngine(warning_light_is_on)
         self.assertFalse(car.needs_service())
 
+
+class TestCarrigan(unittest.TestCase):
+    def test_tire_should_be_serviced(self):
+        sensors = [0, 1, 0, 0]
+
+        tire = Carrigan(sensors)
+        self.assertTrue(tire.needs_service())
+
+    def test_tire_should_not_be_serviced(self):
+        sensors = [0, 0, 0, 0]
+
+        tire = Carrigan(sensors)
+        self.assertFalse(tire.needs_service())
+
+
+class TestOctoprime(unittest.TestCase):
+    def test_tire_should_be_serviced(self):
+        sensors = [1, 1, 1, 0]
+
+        tire = Octoprime(sensors)
+        self.assertTrue(tire.needs_service())
+
+    def test_tire_should_not_be_serviced(self):
+        sensors = [1, 1, 0, 0]
+
+        tire = Octoprime(sensors)
+        self.assertFalse(tire.needs_service())
 
 
 if __name__ == '__main__':
